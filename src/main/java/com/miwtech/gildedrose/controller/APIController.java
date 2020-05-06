@@ -34,9 +34,7 @@ public class APIController {
     public Page getItemInventory(@PathVariable Optional<Integer> page) throws InvalidItemPageException {
         //If the page number is not provided, default to display the first page.
         int displayPage = page.isPresent()?page.get():1;
-        Page itemPage = itemService.getItemInventory(displayPage);
-
-        return itemPage;
+        return itemService.getItemInventory(displayPage);
     }
     @GetMapping({"/purchase/{itemId}"})
     public CustomResponseMessage purchaseItem(@PathVariable Long itemId) throws ItemNotAvailableException, InvalidItemException {
