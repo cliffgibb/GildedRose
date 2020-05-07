@@ -48,4 +48,11 @@ public class APIController {
         logger.debug(String.format("Purchased Item %s ",itemId));
         return customResponseMessageFactory.getSuccessfulPurchaseResponse();
     }
+    @GetMapping({"/hello-mars"})
+    public CustomResponseMessage helloMars()  {
+        logger.debug("helloMars");
+        CustomResponseMessage message = new CustomResponseMessage();
+        message.setMessage("Hello Mars!");
+        return message;
+    }
 }
