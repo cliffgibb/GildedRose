@@ -1,15 +1,20 @@
 package com.miwtech.gildedrose.controller;
 
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.miwtech.gildedrose.customresponse.CustomResponseMessage;
 import com.miwtech.gildedrose.customresponse.CustomResponseMessageFactory;
 import com.miwtech.gildedrose.exception.InvalidItemException;
 import com.miwtech.gildedrose.exception.InvalidItemPageException;
 import com.miwtech.gildedrose.exception.ItemNotAvailableException;
 import com.miwtech.gildedrose.service.ItemService;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 /***
  * The API Controller provides the public endpoint supported by The Gilded Rose:
@@ -18,6 +23,7 @@ import java.util.Optional;
  */
 @RestController
 public class APIController {
+    private static final Logger logger = LoggerFactory.getLogger(APIController.class);
     private final ItemService itemService;
     private final CustomResponseMessageFactory customResponseMessageFactory;
 
@@ -39,7 +45,7 @@ public class APIController {
     @GetMapping({"/purchase/{itemId}"})
     public CustomResponseMessage purchaseItem(@PathVariable Long itemId) throws ItemNotAvailableException, InvalidItemException {
         itemService.purchaseItem(itemId);
-
+        logger.debug(String.format("Purchased Item %s ",itemId));
         return customResponseMessageFactory.getSuccessfulPurchaseResponse();
     }
 }
