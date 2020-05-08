@@ -22,12 +22,12 @@ import com.miwtech.gildedrose.service.ItemService;
  *  - The '/purchase' endpoint allows the purchase of an item, and decrements the number of available items.
  */
 @RestController
-public class APIController {
-    private static final Logger logger = LoggerFactory.getLogger(APIController.class);
+public class StoreController {
+    private static final Logger logger = LoggerFactory.getLogger(StoreController.class);
     private final ItemService itemService;
     private final CustomResponseMessageFactory customResponseMessageFactory;
 
-    public APIController(ItemService itemService, CustomResponseMessageFactory customResponseMessageFactory) {
+    public StoreController(ItemService itemService, CustomResponseMessageFactory customResponseMessageFactory) {
         this.itemService = itemService;
         this.customResponseMessageFactory = customResponseMessageFactory;
     }
@@ -47,12 +47,5 @@ public class APIController {
         itemService.purchaseItem(itemId);
         logger.debug(String.format("Purchased Item %s ",itemId));
         return customResponseMessageFactory.getSuccessfulPurchaseResponse();
-    }
-    @GetMapping({"/hello-mars"})
-    public CustomResponseMessage helloMars()  {
-        logger.debug("helloMars");
-        CustomResponseMessage message = new CustomResponseMessage();
-        message.setMessage("Hello Mars!");
-        return message;
     }
 }
