@@ -55,6 +55,9 @@ public class ItemService {
 
         return itemEntityPage;
     }
+    public void featureNoLongerNeeded() {
+        //TODO: Remove this!
+    }
     /**
      * Purchase an item
      * @param itemId
