@@ -36,7 +36,24 @@ public class ItemService {
         this.viewLogService = viewLogService;
         this.surgePricingService = surgePricingService;
     }
+    /**
+     * Retrieve a page of items
+     * @param page
+     * @return
+     * @throws InvalidItemPageException
+     */
+    public Page<ItemEntity> duplicateFeatureNoLongerNeeded(int page) throws InvalidItemPageException {
+        Page<ItemEntity> itemEntityPage = itemRepository.getInStockItemsPaginated(PageRequest.of(page-1, itemsPerPage));
 
+        if (page > itemEntityPage.getTotalPages())
+            throw new InvalidItemPageException("Invalid page selection. There are no items for this page.");
+        List<ItemEntity> viewedItemEntities = itemEntityPage.getContent();
+
+        viewLogService.addViewLogs(viewedItemEntities);
+        surgePricingService.adjustPricing(itemEntityPage);
+
+        return itemEntityPage;
+    }
     /**
      * Retrieve a page of items
      * @param page
