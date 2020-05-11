@@ -55,9 +55,6 @@ public class ItemService {
 
         return itemEntityPage;
     }
-    public void veryImportantAction() {
-
-    }
     /**
      * Purchase an item
      * @param itemId
