@@ -6,6 +6,6 @@ public class FutureFunctionController {
 
         String hello = "World";
 
-        System.out.println(" More Stuff done." + hello);
+        System.out.println(" More Stuff done. Hello " + hello);
     }
 }
